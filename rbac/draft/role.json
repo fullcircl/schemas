@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/torus-online/schemas/raw/main/rbac/role.json",
+    "$id": "https://github.com/torus-online/schemas/raw/main/rbac/draft/role.json",
     "$schema": "http://json-schema.org/schema#",
     "title": "Role",
     "type": "object",
@@ -53,7 +53,7 @@
     },
     "examples": [
         {
-            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/role.json",
+            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/role.json",
             "id": "179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "name": "administrator",
             "subjects": [ "9a64226fd749513ad0ed2e43e663f7132c92faa7" ],
