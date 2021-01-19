@@ -31,7 +31,7 @@
     "definitions": {
         "permission": {
             "type": "object",
-            "required": [ "type", "name" ],
+            "required": [ "mode", "action", "object" ],
             "properties": {
                 "mode": {
                     "type": "string",
