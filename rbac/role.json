@@ -1,0 +1,51 @@
+{
+    "$id": "https://github.com/torus-online/schemas/raw/main/rbac/role.json",
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Role",
+    "type": "object",
+    "required": [ "id", "name" ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "A UUID that identifies the role"
+        },
+        "name": {
+            "type": "string",
+            "description": "The name of the role"
+        },
+        "parent": {
+            "type": "string",
+            "description": "When set, identifies the parent role"
+        },
+        "subjects": {
+            "type": "array",
+            "description": "The role's members",
+            "items": { "type": "string", "description": "The address of the role member" }
+        },
+        "permissions": {
+            "type": "array",
+            "description": "The role's members",
+            "items": { "$ref": "#/definitions/permission" }
+        }
+    },
+    "definitions": {
+        "permission": {
+            "type": "object",
+            "required": [ "type", "name" ],
+            "properties": {
+                "mode": {
+                    "type": "string",
+                    "description": "GRANT, DENY, or REVOKE"
+                },
+                "action": {
+                    "type": "string",
+                    "description": "The action that the permission applies to"
+                },
+                "object": {
+                    "type": "string",
+                    "description": "The object that the permission applies to"
+                }
+            }
+        }
+    }
+}
