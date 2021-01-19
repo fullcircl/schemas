@@ -7,7 +7,8 @@
     "properties": {
         "id": {
             "type": "string",
-            "description": "A UUID that identifies the role"
+            "description": "A UUID that identifies the role",
+            "format": "uuid"
         },
         "name": {
             "type": "string",
@@ -35,7 +36,8 @@
             "properties": {
                 "mode": {
                     "type": "string",
-                    "description": "GRANT, DENY, or REVOKE"
+                    "description": "GRANT, DENY, or REVOKE",
+                    "pattern": "/^GRANT|DENY|REVOKE$/g"
                 },
                 "action": {
                     "type": "string",
@@ -47,5 +49,16 @@
                 }
             }
         }
-    }
+    },
+    "examples": [
+        {
+            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/role.json",
+            "id": "179a9b65-48bb-482e-8cfb-c53d266f85a3",
+            "name": "administrator",
+            "subjects": [ "9a64226fd749513ad0ed2e43e663f7132c92faa7" ],
+            "permissions": [
+                { "mode": "GRANT", "action": "write", "object": "server://users" }
+            ]
+        }
+    ]
 }
