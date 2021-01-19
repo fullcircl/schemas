@@ -46,7 +46,7 @@
                 },
                 "object": {
                     "type": "string",
-                    "description": "The object that the permission applies to"
+                    "description": "The object that the permission applies to. Recommend URI."
                 }
             }
         }
