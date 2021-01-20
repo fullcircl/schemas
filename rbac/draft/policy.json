@@ -1,0 +1,111 @@
+{
+    "$id": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json",
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Cardano-RBAC Authorization Policy",
+    "type": "object",
+    "required": [ "protocol", "urn", "permissionSubjects", "roles" ],
+    "properties": {
+        "protocol": {
+            "type": "string",
+            "description": "The Cardano-RBAC protocal version number to use",
+            "enum": [ "0" ]
+        },
+        "urn": {
+            "type": "string",
+            "description": "A URN that uniquely names the policy",
+            "examples": [ "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" ]
+        },
+        "permissionSubjects": {
+            "type": "array",
+            "description": "The policy's permissions and their assigned subjects",
+            "items": { "$ref": "#/definitions/permissionSubjects" }
+        },
+        "roles": {
+            "type": "array",
+            "description": "The policie's roles",
+            "items": { "$ref": "#/definitions/role" }
+        }
+    },
+    "definitions": {
+        "subject": {
+            "type": "string",
+            "format": "uri",
+            "examples": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
+        },
+        "permission": {
+            "type": "object",
+            "required": [ "mode", "action", "object" ],
+            "properties": {
+                "mode": {
+                    "type": "string",
+                    "description": "grant, deny, or revoke",
+                    "enum": [ "grant", "deny", "revoke" ]
+                },
+                "action": {
+                    "type": "string",
+                    "description": "read or write",
+                    "enum": [ "read", "write" ]
+                },
+                "object": {
+                    "type": "string",
+                    "description": "The object that the permission applies to. Recommend URI."
+                }
+            }
+        },
+        "role": {
+            "type": "object",
+            "required": [ "name", "permissions", "subjects" ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name that identifies the role"
+                },
+                "permissions": {
+                    "type": "array",
+                    "description": "The role's members",
+                    "items": { "$ref": "#/definitions/permission" }
+                },
+                "subjects": {
+                    "type": "array",
+                    "description": "The role's members",
+                    "items": { "$ref": "#/definitions/subject" }
+                },
+                "roles": {
+                    "type": "array",
+                    "description": "Roles that inherit permissions from this role",
+                    "items": { "$ref": "#/definitions/role" }
+                }
+            }
+        },
+        "permissionSubjects": {
+            "type": "object",
+            "required": [ "permission", "subjects" ],
+            "permission": { "$ref": "#/definitions/permission" },
+            "subjects": {
+                "type": "array",
+                "description": "The subjects to which the permission is assigned",
+                "items": { "$ref": "#/definitions/subject" }
+            }
+        }
+    },
+    "examples": [
+        {
+            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json",
+            "protocol": "0",
+            "urn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
+            "permissionSubjects": [{
+                "permission": { "mode": "grant", "action": "write", "object": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
+                "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
+            }],
+            "roles": [
+                {
+                    "name": "User Admin",
+                    "permissions": [{
+                        "mode": "grant", "action": "write", "object": "server/users"
+                    }],
+                    "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
+                }
+            ]
+        }
+    ]
+}
