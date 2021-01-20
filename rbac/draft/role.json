@@ -36,13 +36,13 @@
             "properties": {
                 "mode": {
                     "type": "string",
-                    "description": "GRANT, DENY, or REVOKE",
-                    "pattern": "^GRANT|DENY|REVOKE$"
+                    "description": "grant, deny, or revoke",
+                    "enum": [ "grant", "deny", "revoke" ]
                 },
                 "action": {
                     "type": "string",
-                    "description": "READ or WRITE",
-                    "pattern": "^READ|WRITE|$"
+                    "description": "read or write",
+                    "enum": [ "read", "write" ]
                 },
                 "object": {
                     "type": "string",
@@ -58,7 +58,7 @@
             "name": "administrator",
             "subjects": [ "9a64226fd749513ad0ed2e43e663f7132c92faa7" ],
             "permissions": [
-                { "mode": "GRANT", "action": "WRITE", "object": "server://users" }
+                { "mode": "grant", "action": "write", "object": "server://users" }
             ]
         }
     ]
