@@ -6,11 +6,6 @@
     "additionalProperties": false,
     "required": [ "protocol", "urn", "permissionSubjects", "roles" ],
     "properties": {
-        "protocol": {
-            "type": "string",
-            "description": "The Cardano-RBAC protocal version number to use",
-            "enum": [ "0" ]
-        },
         "urn": {
             "type": "string",
             "format": "uri",
@@ -96,7 +91,6 @@
     "examples": [
         {
             "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json",
-            "protocol": "0",
             "urn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "permissionSubjects": [{
                 "permission": { "mode": "grant", "action": "write", "object": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
