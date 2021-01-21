@@ -1,0 +1,57 @@
+{
+    "$id": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy-tx.json",
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Cardano-RBAC Authorization Policy Transaction",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [ "policyUrn", "method" ],
+    "properties": {
+        "policyUrn": {
+            "type": "string",
+            "format": "uri",
+            "description": "A URN that uniquely identifies the policy to transact on"
+        },
+        "method": {
+            "type": "string",
+            "description": "The transaction type",
+            "enum": [ "patch", "put", "delete" ]
+        },
+        "body": {
+            "oneOf": [
+                { "$ref": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json#" },
+                { "$ref": "http://json.schemastore.org/json-patch#" }
+            ]
+        }
+    },
+    "examples": [
+        {
+            "policyUrn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
+            "method": "delete"
+        },
+        {
+            "policyUrn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
+            "method": "patch",
+            "body": { "op": "add", "path": "/permissionSubjects/0/subjects/-", "value": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+        },
+        {
+            "policyUrn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
+            "method": "put",
+            "body": {
+                "urn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
+                "permissionSubjects": [{
+                    "permission": { "mode": "grant", "action": "write", "object": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
+                    "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
+                }],
+                "roles": [
+                    {
+                        "name": "User Admin",
+                        "permissions": [{
+                            "mode": "grant", "action": "write", "object": "server/users"
+                        }],
+                        "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
+                    }
+                ]
+            }
+        }
+    ]
+}
