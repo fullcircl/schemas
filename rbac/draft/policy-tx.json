@@ -25,15 +25,18 @@
     },
     "examples": [
         {
+            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy-tx.json",
             "policyUrn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "method": "delete"
         },
         {
+            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy-tx.json",
             "policyUrn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "method": "patch",
             "body": { "op": "add", "path": "/permissionSubjects/0/subjects/-", "value": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
         },
         {
+            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy-tx.json",
             "policyUrn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "method": "put",
             "body": {
