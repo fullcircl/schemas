@@ -32,7 +32,7 @@
         "permission": {
             "type": "object",
             "additionalProperties": false,
-            "required": [ "mode", "action", "object" ],
+            "required": [ "mode", "action", "resource" ],
             "properties": {
                 "mode": {
                     "type": "string",
@@ -44,7 +44,7 @@
                     "description": "read or write",
                     "enum": [ "read", "write" ]
                 },
-                "object": {
+                "resource": {
                     "type": "string",
                     "description": "The object that the permission applies to. Recommend URI."
                 }
@@ -93,14 +93,14 @@
             "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json",
             "urn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "permissionSubjects": [{
-                "permission": { "mode": "grant", "action": "write", "object": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
+                "permission": { "mode": "grant", "action": "write", "resource": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
                 "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
             }],
             "roles": [
                 {
                     "name": "User Admin",
                     "permissions": [{
-                        "mode": "grant", "action": "write", "object": "server/users"
+                        "mode": "grant", "action": "write", "resource": "server/users"
                     }],
                     "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
                 }
