@@ -61,7 +61,7 @@
                 },
                 "permissions": {
                     "type": "array",
-                    "description": "The role's members",
+                    "description": "The role's permissions",
                     "items": { "$ref": "#/definitions/permission" }
                 },
                 "subjects": {
