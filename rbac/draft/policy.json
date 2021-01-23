@@ -4,7 +4,7 @@
     "title": "Cardano-RBAC Authorization Policy",
     "type": "object",
     "additionalProperties": false,
-    "required": [ "protocol", "urn", "permissionSubjects", "roles" ],
+    "required": [ "urn", "permissionSubjects", "roles" ],
     "properties": {
         "urn": {
             "type": "string",
