@@ -3,7 +3,6 @@
     "$schema": "http://json-schema.org/schema#",
     "title": "Cardano-RBAC Authorization Policy Transaction",
     "type": "object",
-    "additionalProperties": false,
     "required": [ "policyUrn", "method" ],
     "properties": {
         "policyUrn": {
