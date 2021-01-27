@@ -35,8 +35,8 @@
             "properties": {
                 "mode": {
                     "type": "string",
-                    "description": "grant, deny, or revoke",
-                    "enum": [ "grant", "deny", "revoke" ]
+                    "description": "grant or deny",
+                    "enum": [ "grant", "deny" ]
                 },
                 "action": {
                     "type": "string",
