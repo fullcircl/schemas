@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/torus-online/schemas/raw/main/organization/draft/organization.json",
+    "$id": "https://github.com/fullcircl/schemas/raw/main/organization/draft/organization.json",
     "$schema": "http://json-schema.org/schema#",
     "title": "Organization",
     "type": "object",
@@ -17,7 +17,7 @@
     },
     "examples": [
         {
-            "$schema": "https://github.com/torus-online/schemas/raw/main/organization/draft/organization.json",
+            "$schema": "https://github.com/fullcircl/schemas/raw/main/organization/draft/organization.json",
             "id": "9aebe64a-51b8-45d4-8d93-b855631ef508",
             "name": "Torus"
         }

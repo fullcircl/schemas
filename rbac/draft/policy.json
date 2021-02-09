@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json",
+    "$id": "https://github.com/fullcircl/schemas/raw/main/rbac/draft/policy.json",
     "$schema": "http://json-schema.org/schema#",
     "title": "Cardano-RBAC Authorization Policy",
     "type": "object",
@@ -91,7 +91,7 @@
     },
     "examples": [
         {
-            "$schema": "https://github.com/torus-online/schemas/raw/main/rbac/draft/policy.json",
+            "$schema": "https://github.com/fullcircl/schemas/raw/main/rbac/draft/policy.json",
             "urn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
             "permissionSubjects": [{
                 "permission": { "mode": "grant", "action": "write", "resource": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
