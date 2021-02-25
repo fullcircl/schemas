@@ -1,0 +1,131 @@
+{
+  "$id": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json",
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Cardano Transaction Metadata",
+  "description": "Extra application data attached to the transaction.\n\nCardano allows users and developers to embed their own\nauthenticated metadata when submitting transactions. Metadata can\nbe expressed as a JSON object with some restrictions:\n\n1. All top-level keys must be integers between `0` and `2^64 - 1`.\n\n2. Each metadata value is tagged with its type.\n\n3. Strings must be at most 64 bytes when UTF-8 encoded.\n\n4. Bytestrings are hex-encoded, with a maximum length of 64 bytes.\n\nMetadata aren't stored as JSON on the Cardano blockchain but are\ninstead stored using a compact binary encoding (CBOR).\n\nThe binary encoding of metadata values supports three simple types:\n\n* Integers in the range `-(2^64 - 1)` to `2^64 - 1`\n* Strings (UTF-8 encoded)\n* Bytestrings\n\nAnd two compound types:\n\n* Lists of metadata values\n* Mappings from metadata values to metadata values\n\nIt is possible to transform any JSON object into this schema.\n\nHowever, if your application uses floating point values, they will\nneed to be converted somehow, according to your\nrequirements. Likewise for `null` or `bool` values. When reading\nmetadata from chain, be aware that integers may exceed the\njavascript numeric range, and may need special \"bigint\" parsing.\n",
+  "type": "object",
+  "nullable": true,
+  "patternProperties": {
+    "^[0-9]+$": { "$ref": "#/definitions/transactionMetadataValue" }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "transactionMetadataValue": {
+      "oneOf": [
+        {
+          "title": "String",
+          "type": "object",
+          "required": [ "string" ],
+          "properties": {
+            "string": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        },
+        {
+          "title": "Int",
+          "type": "object",
+          "required": [ "int" ],
+          "properties": {
+            "int": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "title": "ByteString",
+          "type": "object",
+          "required": [ "bytes" ],
+          "properties": {
+            "bytes": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]*$",
+              "maxLength": 128
+            }
+          }
+        },
+        {
+          "title": "List",
+          "type": "object",
+          "required": [ "list" ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/transactionMetadataValue"
+              }
+            }
+          }
+        },
+        {
+          "title": "Map",
+          "type": "object",
+          "required": [ "map" ],
+          "properties": {
+            "map": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "k": {
+                    "$ref": "#/definitions/transactionMetadataValue"
+                  },
+                  "v": {
+                    "$ref": "#/definitions/transactionMetadataValue"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "examples": [
+    {
+      "0": {
+        "string": "cardano"
+      },
+      "1": {
+        "int": 14
+      },
+      "2": {
+        "bytes": "2512a00e9653fe49a44a5886202e24d77eeb998f"
+      },
+      "3": {
+        "list": [
+          {
+            "int": 14
+          },
+          {
+            "int": 42
+          },
+          {
+            "string": "1337"
+          }
+        ]
+      },
+      "4": {
+        "map": [
+          {
+            "k": {
+              "string": "key"
+            },
+            "v": {
+              "string": "value"
+            }
+          },
+          {
+            "k": {
+              "int": 14
+            },
+            "v": {
+              "int": 42
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
