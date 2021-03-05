@@ -10,75 +10,76 @@
   },
   "additionalProperties": false,
   "definitions": {
-    "transactionMetadataValue": {
-      "oneOf": [
-        {
-          "title": "String",
-          "type": "object",
-          "required": [ "string" ],
-          "properties": {
-            "string": {
-              "type": "string",
-              "maxLength": 64
-            }
+    "txString": {
+      "type": "object",
+      "required": [ "string" ],
+      "properties": {
+        "string": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    },
+    "txInt": {
+      "type": "object",
+      "required": [ "int" ],
+      "properties": {
+        "int": {
+          "type": "integer"
+        }
+      }
+    },
+    "txByteString": {
+      "type": "object",
+      "required": [ "bytes" ],
+      "properties": {
+        "bytes": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]*$",
+          "maxLength": 128
+        }
+      }
+    },
+    "txList": {
+      "type": "object",
+      "required": [ "list" ],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transactionMetadataValue"
           }
-        },
-        {
-          "title": "Int",
-          "type": "object",
-          "required": [ "int" ],
-          "properties": {
-            "int": {
-              "type": "integer"
-            }
-          }
-        },
-        {
-          "title": "ByteString",
-          "type": "object",
-          "required": [ "bytes" ],
-          "properties": {
-            "bytes": {
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]*$",
-              "maxLength": 128
-            }
-          }
-        },
-        {
-          "title": "List",
-          "type": "object",
-          "required": [ "list" ],
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
+        }
+      }
+    },
+    "txMap": {
+      "title": "Map",
+      "type": "object",
+      "required": [ "map" ],
+      "properties": {
+        "map": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "$ref": "#/definitions/transactionMetadataValue"
+              },
+              "v": {
                 "$ref": "#/definitions/transactionMetadataValue"
               }
             }
           }
-        },
-        {
-          "title": "Map",
-          "type": "object",
-          "required": [ "map" ],
-          "properties": {
-            "map": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "k": {
-                    "$ref": "#/definitions/transactionMetadataValue"
-                  },
-                  "v": {
-                    "$ref": "#/definitions/transactionMetadataValue"
-                  }
-                }
-              }
-            }
-          }
         }
+      }
+    },
+    "transactionMetadataValue": {
+      "oneOf": [
+        { "$ref": "#/definitions/txString" },
+        { "$ref": "#/definitions/txInt" },
+        { "$ref": "#/definitions/txByteString" },
+        { "$ref": "#/definitions/txList" },
+        { "$ref": "#/definitions/txMap" }
       ]
     }
   },
