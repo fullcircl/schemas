@@ -1,7 +1,7 @@
 {
     "$id": "https://github.com/fullcircl/schemas/raw/main/rbac/draft/policy-tx.json",
     "$schema": "http://json-schema.org/schema#",
-    "title": "Cardano-RBAC Authorization Policy Transaction",
+    "title": "Transactional-RBAC Authorization Policy Transaction",
     "type": "object",
     "required": [ "policyUrn", "method" ],
     "properties": {
