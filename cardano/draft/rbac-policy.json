@@ -3,6 +3,7 @@
     "$schema": "http://json-schema.org/schema#",
     "title": "Cardano-RBAC Authorization Policy",
     "type": "object",
+    "additionalProperties": false,
     "required": [ "0", "1", "2" ],
     "properties": {
         "0": {
@@ -18,7 +19,34 @@
             "properties": {
                 "list": {
                     "type": "array",
-                    "items": { "$ref": "#/definitions/permission" }
+                    "items": {
+                        "type": "object",
+                        "required": [ "map" ],
+                        "properties": {
+                            "map": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "k": {
+                                            "$ref": "#/definitions/permission"
+                                        },
+                                        "v": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "required": [ "list" ],
+                                            "properties": {
+                                                "list": {
+                                                    "type": "array",
+                                                    "items": { "$ref": "#/definitions/listString" }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
