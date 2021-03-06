@@ -28,9 +28,7 @@
                                 "items": {
                                     "type": "object",
                                     "properties": {
-                                        "k": {
-                                            "$ref": "#/definitions/permission"
-                                        },
+                                        "k": { "$ref": "#/definitions/permission" },
                                         "v": {
                                             "type": "object",
                                             "additionalProperties": false,
@@ -95,9 +93,7 @@
                     "type": "array",
                     "minItems": 3,
                     "maxItems": 3,
-                    "items": {
-                        "$ref": "#/definitions/listString"
-                    }
+                    "items": { "$ref": "#/definitions/listString" }
                 }
             }
         },
