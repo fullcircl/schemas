@@ -3,109 +3,169 @@
     "$schema": "http://json-schema.org/schema#",
     "title": "Cardano-RBAC Authorization Policy",
     "type": "object",
-    "required": [ "urn", "permissionSubjects", "roles" ],
+    "required": [ "0", "1", "2" ],
     "properties": {
-        "urn": {
-            "type": "string",
-            "format": "uri",
+        "0": {
             "description": "A URN that uniquely names the policy",
+            "$ref": "#/definitions/listString",
             "examples": [ "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" ]
         },
-        "permissionSubjects": {
-            "type": "array",
+        "1": {
+            "type": "object",
             "description": "The policy's permissions and their assigned subjects",
-            "items": { "$ref": "#/definitions/permissionSubjects" }
+            "additionalProperties": false,
+            "required": [ "list" ],
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/permission" }
+                }
+            }
         },
-        "roles": {
-            "type": "array",
+        "2": {
+            "type": "object",
             "description": "The policie's roles",
-            "items": { "$ref": "#/definitions/role" }
+            "additionalProperties": false,
+            "required": [ "list" ],
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/role" }
+                }
+            }
         }
     },
     "definitions": {
-        "subject": {
-            "type": "string",
-            "format": "uri",
-            "examples": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
+        "stringList": {
+            "type": "object",
+            "description": "A list containing only txStrings",
+            "additionalProperties": false,
+            "required": [ "list" ],
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json#/definitions/txString"
+                    }
+                }
+            }
+        },
+        "listString": {
+            "description": "Either a txString or a stringList when the value is over 64 bytes in length",
+            "oneOf": [
+                { "$ref": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json#/definitions/txString" },
+                { "$ref": "#/definitions/stringList" }
+            ]
         },
         "permission": {
             "type": "object",
+            "description": "A list containing a permission's mode, action, and subject",
             "additionalProperties": false,
-            "required": [ "mode", "action", "resource" ],
+            "required": [ "list" ],
             "properties": {
-                "mode": {
-                    "type": "string",
-                    "description": "grant or deny",
-                    "enum": [ "grant", "deny" ]
-                },
-                "action": {
-                    "type": "string",
-                    "description": "read or write",
-                    "enum": [ "read", "write" ]
-                },
-                "resource": {
-                    "type": "string",
-                    "description": "The object that the permission applies to. Recommend URI."
+                "list": {
+                    "type": "array",
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "items": {
+                        "$ref": "#/definitions/stringList"
+                    }
                 }
             }
         },
         "role": {
             "type": "object",
+            "description": "A list containing a role's name, permissions, and subjects",
             "additionalProperties": false,
-            "required": [ "name", "permissions", "subjects" ],
+            "required": [ "list" ],
             "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "A human-readable name that identifies the role"
-                },
-                "permissions": {
+                "list": {
                     "type": "array",
-                    "description": "The role's permissions",
-                    "items": { "$ref": "#/definitions/permission" }
-                },
-                "subjects": {
-                    "type": "array",
-                    "description": "The role's members",
-                    "items": { "$ref": "#/definitions/subject" }
-                },
-                "roles": {
-                    "type": "array",
-                    "description": "Roles that inherit permissions from this role",
-                    "items": { "$ref": "#/definitions/role" }
-                }
-            }
-        },
-        "permissionSubjects": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [ "permission", "subjects" ],
-            "properties": {
-                "permission": { "$ref": "#/definitions/permission" },
-                "subjects": {
-                    "type": "array",
-                    "description": "The subjects to which the permission is assigned",
-                    "items": { "$ref": "#/definitions/subject" }
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "items": {
+                        "oneOf": [
+                            { "$ref": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json#/definitions/txString" },
+                            {
+                                "type": "object",
+                                "description": "A list of permissions",
+                                "additionalProperties": false,
+                                "required": [ "list" ],
+                                "properties": {
+                                    "list": {
+                                        "type": "array",
+                                        "items": { "$ref": "#/definitions/permission" }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "object",
+                                "description": "A list of subjects",
+                                "additionalProperties": false,
+                                "required": [ "list" ],
+                                "properties": {
+                                    "list": {
+                                        "type": "array",
+                                        "items": { "$ref": "#/definitions/listString" }
+                                    }
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
     },
     "examples": [
         {
-            "$schema": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/rbac-policy.json",
-            "urn": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3",
-            "permissionSubjects": [{
-                "permission": { "mode": "grant", "action": "write", "resource": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
-                "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
-            }],
-            "roles": [
-                {
-                    "name": "User Admin",
-                    "permissions": [{
-                        "mode": "grant", "action": "write", "resource": "server/users"
-                    }],
-                    "subjects": [ "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" ]
-                }
-            ]
+            "0": { "string": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" },
+            "1": {
+                "list": [
+                    {
+                        "map": [
+                            {
+                                "k": {
+                                    "list": [
+                                        { "string": "grant" },
+                                        { "string": "write" },
+                                        { "string": "urn:uuid:179a9b65-48bb-482e-8cfb-c53d266f85a3" }
+                                    ]
+                                },
+                                "v": {
+                                    "list": [
+                                        { "string": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "2": {
+                "list": [
+                    {
+                        "list": [
+                            { "string": "User Admin" },
+                            {
+                                "list": [
+                                    {
+                                        "list": [
+                                            { "string": "grant" },
+                                            { "string": "write" },
+                                            { "string": "server/users" }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "list": [
+                                    { "string": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     ]
 }
