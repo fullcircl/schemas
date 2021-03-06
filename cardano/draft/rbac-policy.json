@@ -96,7 +96,7 @@
                     "minItems": 3,
                     "maxItems": 3,
                     "items": {
-                        "$ref": "#/definitions/stringList"
+                        "$ref": "#/definitions/listString"
                     }
                 }
             }
