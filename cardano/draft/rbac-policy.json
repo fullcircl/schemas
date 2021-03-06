@@ -157,7 +157,12 @@
                                 },
                                 "v": {
                                     "list": [
-                                        { "string": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+                                        {
+                                            "list": [
+                                                { "string": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v5" },
+                                                { "string": "6zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+                                            ]
+                                        }
                                     ]
                                 }
                             }
@@ -183,7 +188,12 @@
                             },
                             {
                                 "list": [
-                                    { "string": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v56zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+                                    {
+                                        "list": [
+                                            { "string": "web+cardano://address/addr1qxgnu3h67ctnqfz8hauang4vtmp29nhsp47v5" },
+                                            { "string": "6zcqw553lskumdzlg8kqf2sh2ahrvxeqysrndl4spvjngx23y2xuuzs4vpk82" }
+                                        ]
+                                    }
                                 ]
                             }
                         ]
