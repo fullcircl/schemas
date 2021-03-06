@@ -2,7 +2,7 @@
     "$id": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/rbac-policy.json",
     "$schema": "http://json-schema.org/schema#",
     "title": "Cardano Metadata RBAC Authorization Policy",
-    "$ref": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json#",
+    "type": "object",
     "additionalProperties": false,
     "required": [ "0", "1", "2" ],
     "properties": {
