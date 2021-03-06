@@ -78,7 +78,7 @@
         },
         "listString": {
             "description": "Either a txString or a stringList when the value is over 64 bytes in length",
-            "oneOf": [
+            "anyOf": [
                 { "$ref": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json#/definitions/txString" },
                 { "$ref": "#/definitions/stringList" }
             ]
@@ -108,7 +108,7 @@
                     "minItems": 3,
                     "maxItems": 3,
                     "items": {
-                        "oneOf": [
+                        "anyOf": [
                             { "$ref": "https://github.com/fullcircl/schemas/raw/main/cardano/draft/tx-metadata.json#/definitions/txString" },
                             {
                                 "type": "object",
